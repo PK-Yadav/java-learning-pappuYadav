@@ -132,19 +132,6 @@ public class WikiReadWriteCall extends RecursiveAction {
 	 */
 	private void writeUrlJsonDataIntoFile(JSONObject urlJsonData, String keyword) throws IOException {
 		String outputFile = "/Users/pappuy/wikiurldata/outfiles/" + keyword + ".txt";
-		String key = null;
-		Iterator<String> iterator = urlJsonData.keys();
-		while (iterator.hasNext()) {
-			key = iterator.next();
-			if("batchcomplete".equals(key)){
-				continue;
-			}
-			if (!"extract".equals(key) ) {
-				urlJsonData = urlJsonData.getJSONObject(key);
-			} else {
-				Files.write(Paths.get(outputFile), urlJsonData.get(key).toString().getBytes());
-				break;
-			}
-		}
+				Files.write(Paths.get(outputFile), urlJsonData.get("extract").toString().getBytes());
 	}
 }
