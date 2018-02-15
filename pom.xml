@@ -8,6 +8,7 @@
   <modules>
     <module>refactor-task</module>
     <module>multi-threading-task2</module>
+    <module>lru-implementation</module>
   </modules>
   <packaging>pom</packaging>
 
