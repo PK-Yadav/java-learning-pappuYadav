@@ -38,7 +38,6 @@ public class LinkList {
 	}
 
 	public void display() {
-		System.out.print("Size of list is " + size);
 		ListNode temp = start;
 		while (temp != null) {
 			System.out.println(temp.getData());
@@ -48,7 +47,6 @@ public class LinkList {
 
 	public void deleteAtLast() {
 		ListNode headF = start;
-
 		if (start.getNext() == null) {
 			start = null;
 			size--;
