@@ -1,10 +1,10 @@
 package com.pramati.javalearing.multi.module.task.filereaderandparser;
 
-import com.java.learning.task.multithreading.tasks.docparser.factory.ParserFactory;
-import com.java.learning.task.multithreading.tasks.docparser.parserenum.ParserPattern;
-import com.java.learning.task.multithreading.tasks.docparser.parserintf.IDocParser;
-import com.java.learning.task.multithreading.tasks.docreader.readimpl.DocReader;
-import com.java.learning.task.multithreading.tasks.wikicall.WikiReadWriteCall;
+import com.java.learning.task.multithreading.tasks.wordcount.docparser.factory.ParserFactory;
+import com.java.learning.task.multithreading.tasks.wordcount.docparser.parserenum.ParserPattern;
+import com.java.learning.task.multithreading.tasks.wordcount.docparser.parserintf.IDocParser;
+import com.java.learning.task.multithreading.tasks.wordcount.docreader.readimpl.DocReader;
+import com.java.learning.task.multithreading.tasks.wordcount.wikicall.WikiReadWriteCall;
 
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;

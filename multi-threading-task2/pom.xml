@@ -19,6 +19,7 @@
         <module>wiki-call-main</module>
         <module>auto-suggest</module>
         <module>enum-generic-task</module>
+        <module>repeating-word-count</module>
     </modules>
     <name>multi-threading-task2</name>
     <url>http://maven.apache.org</url>

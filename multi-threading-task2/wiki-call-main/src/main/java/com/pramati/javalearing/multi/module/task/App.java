@@ -1,6 +1,6 @@
 package com.pramati.javalearing.multi.module.task;
 
-import com.java.learning.task.multithreading.tasks.docparser.parserenum.ParserPattern;
+import com.java.learning.task.multithreading.tasks.wordcount.docparser.parserenum.ParserPattern;
 import com.pramati.javalearing.multi.module.task.filereaderandparser.FileReaderAndParser;
 
 /**
