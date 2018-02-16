@@ -10,6 +10,7 @@
     <module>multi-threading-task2</module>
     <module>lru-implementation</module>
     <module>enum-generic-task</module>
+    <module>prime-number-eratos-algo</module>
   </modules>
   <packaging>pom</packaging>
 
