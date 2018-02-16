@@ -9,6 +9,7 @@
     <module>refactor-task</module>
     <module>multi-threading-task2</module>
     <module>lru-implementation</module>
+    <module>enum-generic-task</module>
   </modules>
   <packaging>pom</packaging>
 
