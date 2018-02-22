@@ -1,6 +1,6 @@
 package com.java.learning.task.multithreading.tasks.wordcount.enuminstance;
 
-import com.java.learning.task.multithreading.tasks.wordcount.enums.SuperEnum;
+import com.java.learning.task.multithreading.tasks.wordcount.enumintf.SuperEnum;
 
 public class EnumInstanceGenerator{
 

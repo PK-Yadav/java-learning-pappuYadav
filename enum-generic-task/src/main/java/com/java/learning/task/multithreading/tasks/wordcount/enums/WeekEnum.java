@@ -1,4 +1,5 @@
 package com.java.learning.task.multithreading.tasks.wordcount.enums;
+import com.java.learning.task.multithreading.tasks.wordcount.enumintf.SuperEnum;
 
 public enum WeekEnum implements SuperEnum<Integer>{
 	SUNDAY(1),

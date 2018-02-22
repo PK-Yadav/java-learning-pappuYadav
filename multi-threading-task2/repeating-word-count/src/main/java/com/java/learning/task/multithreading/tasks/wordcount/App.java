@@ -13,6 +13,6 @@ public class App
      */
     public static void main( String[] args )
     {
-        new Thread(new WordCounter("/Users/pappuy/fileSpliter/wordcount")).start();
+        new WordCounter("/Users/pappuy/fileSpliter/wordcount").run();
     }
 }

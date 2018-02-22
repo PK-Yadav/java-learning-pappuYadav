@@ -4,6 +4,9 @@ import com.java.learning.tasks.lru.node.LinkList;
 
 import java.util.Scanner;
 
+/**
+ * This file is created like a service, which will handle implementation if LRU concept
+ */
 public class LRUService {
 	LinkList list =  null;
 
@@ -11,6 +14,11 @@ public class LRUService {
 		list =  new LinkList();
 	}
 
+	/**
+	 * Method is responsible to handle LRU cache logic, here i have putted 3 nodes as cache size, one can change as per his/her requirement
+	 *
+	 * @param nodeData
+	 */
 	public void storeDataAsLruCache(String nodeData) {
 		if (list.getSize() == 3) {
 			if (list.contains(nodeData)) {

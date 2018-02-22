@@ -11,7 +11,16 @@ import com.java.learning.task.multithreading.tasks.wordcount.docparser.parserint
  * on the basis of passed parser pattern.
  */
 public class ParserFactory{
+	private static IDocParser INSTANCE= null;
 
+	public static IDocParser getParserInstance(ParserPattern parserPattern){
+		INSTANCE = getParser(parserPattern);
+		return INSTANCE;
+	}
+
+	private ParserFactory(){
+
+	}
 	/**
 	 * object of IDocParser, implementation classes on the basis of passed pattern parse enum.
 	 * @param parserPattern

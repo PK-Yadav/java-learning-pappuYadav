@@ -26,6 +26,10 @@ public class LinkList {
 		this.size = size;
 	}
 
+	/**
+	 * this will insert new node at begining of existing list
+	 * @param page
+	 */
 	public void insertAtBegining(String page) {
 		size++;
 		if (null == start) {
@@ -37,6 +41,9 @@ public class LinkList {
 		start = node;
 	}
 
+	/**
+	 * To display LRU cache data
+	 */
 	public void display() {
 		ListNode temp = start;
 		while (temp != null) {
@@ -45,6 +52,9 @@ public class LinkList {
 		}
 	}
 
+	/**
+	 * This method will delete a node from last.
+	 */
 	public void deleteAtLast() {
 		ListNode headF = start;
 		if (start.getNext() == null) {
@@ -60,6 +70,11 @@ public class LinkList {
 		start = headF;
 	}
 
+	/**
+	 * this will return true/false if data already exist in list..
+	 * @param data
+	 * @return
+	 */
 	public boolean contains(String data) {
 		ListNode tempNode = start;
 		while (tempNode != null) {
@@ -71,6 +86,10 @@ public class LinkList {
 		return false;
 	}
 
+	/**
+	 * This method is responsible to delete a node from list, on the basis of value.
+	 * @param data
+	 */
 	public void deleteNode(String data) {
 		ListNode tempNode = start;
 		ListNode prev = null;

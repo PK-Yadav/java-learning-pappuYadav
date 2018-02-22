@@ -37,19 +37,16 @@ public class WordCounterService extends RecursiveAction{
 	}
 
 	private List<WordCounterService> createSubTask(){
-		List<Path> left = filesPath.subList(0, THREASHOLD);
-		List<Path> right = filesPath.subList(THREASHOLD, filesPath.size());
 		List<WordCounterService> wordCounterServices = new ArrayList<>();
-		wordCounterServices.add(new WordCounterService(wordCounter,left));
-		wordCounterServices.add(new WordCounterService(wordCounter,right));
+		wordCounterServices.add(new WordCounterService(wordCounter,filesPath.subList(0, THREASHOLD)));
+		wordCounterServices.add(new WordCounterService(wordCounter,filesPath.subList(THREASHOLD, filesPath.size())));
 		return wordCounterServices;
 	}
 
 	public void computeDiretcly() throws IOException{
 		System.out.println("Thread " + Thread.currentThread().getName() +" started computing");
 		for(Path filePath : filesPath){
-			List<String> lines = Files.readAllLines(filePath);
-			wordCounter.addWords(lines);
+			wordCounter.addWords(Files.readAllLines(filePath));
 		}
 		System.out.println("Thread " + Thread.currentThread().getName() +" finished computing");
 	}
