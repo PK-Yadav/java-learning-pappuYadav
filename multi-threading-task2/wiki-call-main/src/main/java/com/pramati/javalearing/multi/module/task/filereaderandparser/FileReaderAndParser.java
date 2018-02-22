@@ -28,7 +28,7 @@ public class FileReaderAndParser implements Runnable{
 
 	public void run(){
 		List<String> listKeywords = null;
-		IDocParser parser = new ParserFactory().getParser(getParserPattern());
+		IDocParser parser = ParserFactory.getParserInstance(getParserPattern());
 		if(null != parser) {
 			listKeywords = parser.parse(getInputFile());
 		}else{

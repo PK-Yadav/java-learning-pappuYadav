@@ -11,6 +11,7 @@
     <module>lru-implementation</module>
     <module>enum-generic-task</module>
     <module>prime-number-eratos-algo</module>
+    <module>autosuggest-trie</module>
   </modules>
   <packaging>pom</packaging>
 

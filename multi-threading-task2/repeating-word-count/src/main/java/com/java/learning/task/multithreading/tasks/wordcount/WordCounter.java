@@ -13,7 +13,7 @@ import java.util.concurrent.ForkJoinPool;
  *
  * @author pappuy
  */
-public class WordCounter implements Runnable {
+public class WordCounter {
 	private ConcurrentHashMap<String,Integer> wordCount = null;
 	private String directory;
 

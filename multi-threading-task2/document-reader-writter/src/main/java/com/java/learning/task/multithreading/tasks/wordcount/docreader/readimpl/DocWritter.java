@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public class DocWritter implements IDocWritter{
 
 	public void writeListOfLinesToFile(List<String> lines, String location) throws IOException{
-		Files.write(Paths.get(location), lines.stream().collect(Collectors.toList()));
+		Files.write(Paths.get(location), lines);
 	}
 
 	public void writeLineToFile(String line, String location) throws IOException{

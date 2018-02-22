@@ -7,12 +7,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveAction;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This file will use concept of ForkAndJoin concurrency concept to read an URL and write its data into jason format in file,
@@ -22,6 +25,8 @@ import java.util.concurrent.RecursiveAction;
  */
 
 public class WikiReadWriteCall extends RecursiveAction {
+
+	private static final Logger logger = Logger.getLogger(WikiReadWriteCall.class.getName());
 	private static final int THRESHOLD = 10;
 	private List<String> keywords;
 	private String       url;
@@ -32,7 +37,6 @@ public class WikiReadWriteCall extends RecursiveAction {
 	}
 
 	protected void compute() {
-
 		if (THRESHOLD >= keywords.size()) {
 			computeDirectly();
 		} else {
@@ -47,11 +51,10 @@ public class WikiReadWriteCall extends RecursiveAction {
 	 * @return
 	 */
 	private List<WikiReadWriteCall> breakTaskIntoSubTask() {
+		logger.log(Level.INFO,"Breaking task into sub task");
 		List<WikiReadWriteCall> subTask = new ArrayList<>();
-		List<String> left = getKeywords().subList(0, THRESHOLD);
-		List<String> right = getKeywords().subList(THRESHOLD, getKeywords().size());
-		subTask.add(new WikiReadWriteCall(left, getUrl()));
-		subTask.add(new WikiReadWriteCall(right, getUrl()));
+		subTask.add(new WikiReadWriteCall(getKeywords().subList(0, THRESHOLD), getUrl()));
+		subTask.add(new WikiReadWriteCall(getKeywords().subList(THRESHOLD, getKeywords().size()), getUrl()));
 		return subTask;
 	}
 
@@ -59,22 +62,19 @@ public class WikiReadWriteCall extends RecursiveAction {
 	 * This will process a subtask, means will read url and write it into file from list keyword one by one
 	 */
 	private void computeDirectly() {
-		try {
-			System.out.println("Thread stared computing list " + Thread.currentThread().getName());
-			for (String keyword : keywords) {
-				if (keyword.contains(" ")) {
-					keyword = keyword.replaceAll(" ", "%20");
-				}
-				String callingUrl = getUrl() + "" + keyword + "";
+		logger.log(Level.INFO, "Thread stared computing list " + Thread.currentThread().getName());
+		for (String keyword : keywords) {
+			try {
+				String callingUrl = getUrl() + "" + URLEncoder.encode(keyword,"UTF-8") + "";
 				System.out.println(Thread.currentThread().getName() + " computing " + callingUrl);
 				JSONObject data = readUrlData(callingUrl);
 				writeUrlJsonDataIntoFile(data, keyword);
+			} catch (Exception ex) {
+				logger.log(Level.SEVERE, "Exception reading and writing url data"+ex.getMessage());
+				logger.log(Level.SEVERE, ex.toString());
 			}
-			System.out.println("Thread Completed computing list " + Thread.currentThread().getName());
-
-		} catch (Exception ex) {
-			ex.printStackTrace();
 		}
+		logger.log(Level.INFO, "Thread Completed computing list " + Thread.currentThread().getName());
 	}
 
 	public String getUrl() {
@@ -101,25 +101,41 @@ public class WikiReadWriteCall extends RecursiveAction {
 	 * @throws IOException
 	 */
 	private JSONObject readUrlData(String callingUrl) throws IOException {
+		logger.log(Level.INFO," start reading data of wiki call response");
 		JSONObject json = null;
+		URL urlConn = getUrlConnection(callingUrl);
+		if (null == urlConn) {
+			return json;
+		}
 		StringBuilder sb = new StringBuilder();
-		URL url = new URL(callingUrl);
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConn.openStream()));
+		String decodedString;
+		while ((decodedString = bufferedReader.readLine()) != null) {
+			sb.append(decodedString);
+		}
+		json = new JSONObject(sb.toString());
+		bufferedReader.close();
+		return json;
+	}
+
+	/**
+	 * This will return URl connection if status code is 200 and on successful url connection
+	 * @param callingUrl
+	 * @return
+	 * @throws IOException
+	 */
+	private URL getUrlConnection(String callingUrl) throws IOException {
+
+		URL urlConn = new URL(callingUrl);
+		HttpURLConnection conn = (HttpURLConnection) urlConn.openConnection();
 		conn.setRequestMethod("GET");
 		conn.connect();
 		int responsecode = conn.getResponseCode();
-		if (responsecode != 200)
+		if (responsecode != 200) {
+			logger.log(Level.WARNING, "HttpResponseCode: " + responsecode + " for calling url " + callingUrl);
 			throw new RuntimeException("HttpResponseCode: " + responsecode + " for calling url " + callingUrl);
-		else {
-			BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(url.openStream()));
-			String decodedString;
-			while ((decodedString = bufferedReader.readLine()) != null) {
-				sb.append(decodedString);
-			}
-			json = new JSONObject(sb.toString());
-			bufferedReader.close();
 		}
-		return json;
+		return urlConn;
 	}
 
 	/**
@@ -131,6 +147,9 @@ public class WikiReadWriteCall extends RecursiveAction {
 	 */
 	private void writeUrlJsonDataIntoFile(JSONObject urlJsonData, String keyword) throws IOException {
 		String outputFile = "/Users/pappuy/wikiurldata/outfiles/" + keyword + ".txt";
-				Files.write(Paths.get(outputFile), urlJsonData.get("extract").toString().getBytes());
+		logger.log(Level.INFO,"Writing jsondata at locatio :  "+ outputFile);
+		if(urlJsonData != null) {
+			Files.write(Paths.get(outputFile), urlJsonData.toString().getBytes());
+		}
 	}
 }
