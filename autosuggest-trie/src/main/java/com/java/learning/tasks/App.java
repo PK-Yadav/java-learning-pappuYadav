@@ -1,109 +1,90 @@
 package com.java.learning.tasks;
 
-// Java implementation of search and insert operations
-// on Trie
+import com.java.learning.tasks.trieimpl.Trie;
+
+import java.util.Map;
+import java.util.Scanner;
+
 public class App {
 
-    // Alphabet size (# of symbols)
-    static final int ALPHABET_SIZE = 26;
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        /* Creating object of AATree */
+        Trie root = new Trie();
+        System.out.println("Trie Test\n");
+        char ch;
+        /*  Perform tree operations  */
+        do {
+            System.out.println("\nTrie Operations\n");
+            System.out.println("1. insert ");
+            System.out.println("2. delete");
+            System.out.println("3. search");
+            System.out.println("4. prefix search");
+            System.out.println("5. display");
 
-    // trie node
-    static class TrieNode
-    {
-        TrieNode[] children = new TrieNode[ALPHABET_SIZE];
+            int choice = scan.nextInt();
+            switch (choice) {
+            case 1:
+                System.out.println("Enter string element to insert");
+                root.insertWord(scan.next());
+                break;
+            case 2:
+                System.out.println("Enter string element to delete");
+                try {
+                    root.removeWord(scan.next());
+                } catch (Exception e) {
+                    System.out.println(e.getMessage() + " not found ");
+                }
+                break;
+            case 3:
+                System.out.println("Enter string element to search");
+                System.out.println("Search result : " + root.searchWord(scan.next()));
+                break;
+            case 4 :
+                System.out.println("Enter string element to prefix search");
+                Map<String, Integer> prefixResult = root.prefixSearch(scan.next());
+                System.out.println("Search result : ");
+                for(Map.Entry<String, Integer> map : prefixResult.entrySet()){
+                    System.out.println(map.getKey());
+                }
+                break;
+            case 5 :
+                System.out.println("Enter string element to display all words from trie");
+                Map<String, Integer> words = root.getWordList();
+                System.out.println("Search result : ");
+                for(Map.Entry<String, Integer> map : words.entrySet()){
+                    System.out.println(map.getKey());
+                }
+                break;
+            default:
+                System.out.println("Wrong Entry \n ");
+                break;
+            }
 
-        // isEndOfWord is true if the node represents
-        // end of a word
-        boolean isEndOfWord;
-
-        TrieNode(){
-            isEndOfWord = false;
-            for (int i = 0; i < ALPHABET_SIZE; i++)
-                children[i] = null;
+            System.out.println("\nDo you want to continue (Type y or n) \n");
+            ch = scan.next().charAt(0);
         }
-    };
-
-    static TrieNode root;
-
-    // If not present, inserts key into trie
-    // If the key is prefix of trie node,
-    // just marks leaf node
-    static void insert(String key)
-    {
-        int level;
-        int length = key.length();
-        int index;
-
-        TrieNode pCrawl = root;
-
-        for (level = 0; level < length; level++)
-        {
-            index = key.charAt(level) - 'a';
-            if (pCrawl.children[index] == null)
-                pCrawl.children[index] = new TrieNode();
-
-            pCrawl = pCrawl.children[index];
-        }
-
-        // mark last node as leaf
-        pCrawl.isEndOfWord = true;
+        while (ch == 'Y' || ch == 'y');
     }
 
-    // Returns true if key presents in trie, else false
-    static boolean search(String key)
-    {
-        int level;
-        int length = key.length();
-        int index;
-        TrieNode pCrawl = root;
-
-        for (level = 0; level < length; level++)
-        {
-            index = key.charAt(level) - 'a';
-
-            if (pCrawl.children[index] == null)
-                return false;
-
-            pCrawl = pCrawl.children[index];
+    /*public static void main(String []args){
+        Trie root = new Trie();
+        root.insertWord("hello");
+        root.insertWord("main");
+        root.insertWord("hello");
+        root.insertWord("hey");
+        root.insertWord("heman");
+        if(null != root.searchWord("hello")){
+            System.out.println("Word hello exists in trie");
+        }else{
+            System.out.println("Word hello doesn't exists in trie");
         }
 
-        return (pCrawl != null && pCrawl.isEndOfWord);
+        Map<String, Integer> words = root.prefixSearch("he");
+
+        for (Map.Entry<String, Integer> map : words.entrySet()){
+            System.out.println(map.getKey() +" : " + map.getValue());
+        }
     }
-
-    // Driver
-    public static void main(String args[])
-    {
-        // Input keys (use only 'a' through 'z' and lower case)
-        String keys[] = {"the", "a", "there", "answer", "any",
-                "by", "bye", "their"};
-
-        String output[] = {"Not present in trie", "Present in trie"};
-
-
-        root = new TrieNode();
-
-        // Construct trie
-        int i;
-        for (i = 0; i < keys.length ; i++)
-            insert(keys[i]);
-
-        // Search for different keys
-        if(search("the") == true)
-            System.out.println("the --- " + output[1]);
-        else System.out.println("the --- " + output[0]);
-
-        if(search("these") == true)
-            System.out.println("these --- " + output[1]);
-        else System.out.println("these --- " + output[0]);
-
-        if(search("their") == true)
-            System.out.println("their --- " + output[1]);
-        else System.out.println("their --- " + output[0]);
-
-        if(search("thaw") == true)
-            System.out.println("thaw --- " + output[1]);
-        else System.out.println("thaw --- " + output[0]);
-
-    }
+*/
 }
-// This code is contributed by Sumit Ghosh

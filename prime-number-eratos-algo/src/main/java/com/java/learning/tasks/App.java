@@ -12,6 +12,6 @@ public class App
     {
         System.out.println("Prime number from 1 -30");
         Prime prime = new Prime();
-        prime.printAllPrimeNumberUpToRange(12);
+        prime.printAllPrimeNumberUpToRange(1000);
     }
 }
