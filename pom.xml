@@ -12,6 +12,7 @@
     <module>enum-generic-task</module>
     <module>prime-number-eratos-algo</module>
     <module>autosuggest-trie</module>
+    <module>custom-annotation</module>
   </modules>
   <packaging>pom</packaging>
 
