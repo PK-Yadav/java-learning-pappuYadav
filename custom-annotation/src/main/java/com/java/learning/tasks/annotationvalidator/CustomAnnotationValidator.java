@@ -49,7 +49,7 @@ public class CustomAnnotationValidator {
 	}
 
 	private static String validateFieldValidation(Field field, Annotation annotation, Object obj) {
-		logger.log(Level.INFO, "validateFieldValidation method : " + field);
+		//logger.log(Level.INFO, "validateFieldValidation method : " + field);
 		try {
 			field.setAccessible(true);
 			String value = (String) field.get(obj);
