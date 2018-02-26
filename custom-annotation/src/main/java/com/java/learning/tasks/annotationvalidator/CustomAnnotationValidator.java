@@ -40,7 +40,7 @@ public class CustomAnnotationValidator {
 			field.setAccessible(true);
 			Object value = field.get(obj);
 			if (null == value) {
-				return "Field : "+ field.getName() +" value can't be Null";
+				return "Field : "+ field.getName() +", value can't be Null";
 			}
 		} catch (IllegalAccessException ex) {
 			logger.log(Level.SEVERE, ex.getMessage());
