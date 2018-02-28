@@ -7,26 +7,19 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>custome-annotation</artifactId>
+    <artifactId>observer-blog</artifactId>
     <packaging>jar</packaging>
 
-    <name>custome-annotation</name>
+    <name>observer-blog</name>
     <url>http://maven.apache.org</url>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.reflections/reflections -->
-        <dependency>
-            <groupId>org.reflections</groupId>
-            <artifactId>reflections</artifactId>
-            <version>0.9.10</version>
-        </dependency>
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

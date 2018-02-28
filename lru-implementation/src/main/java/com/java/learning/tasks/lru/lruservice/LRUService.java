@@ -28,7 +28,10 @@ public class LRUService {
 				list.deleteAtLast();
 				list.insertAtBegining(nodeData);
 			}
-		} else {
+		} else if(list.contains(nodeData)){
+			list.deleteNode(nodeData);
+			list.insertAtBegining(nodeData);
+		}else{
 			list.insertAtBegining(nodeData);
 		}
 	}

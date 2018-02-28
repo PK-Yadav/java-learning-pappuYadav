@@ -6,6 +6,7 @@ import com.java.learning.tasks.common.ValidatorEnum;
 import java.io.Serializable;
 import java.util.Date;
 
+@DocDataConsistency
 public class Aadhar implements Serializable{
 	private static final long serialVersionUID = -533077700645232345L;
 

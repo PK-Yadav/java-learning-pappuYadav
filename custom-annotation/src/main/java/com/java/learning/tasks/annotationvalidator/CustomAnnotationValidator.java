@@ -1,13 +1,20 @@
 package com.java.learning.tasks.annotationvalidator;
 
+import com.java.learning.tasks.annotation.DocDataConsistency;
 import com.java.learning.tasks.annotation.FieldValidator;
 import com.java.learning.tasks.annotation.NotNull;
 import com.java.learning.tasks.common.ValidatorEnum;
+import com.sun.tools.javac.code.TypeAnnotations;
+import javafx.scene.effect.Reflection;
+import org.reflections.Reflections;
+import org.reflections.scanners.TypeAnnotationsScanner;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -40,7 +47,7 @@ public class CustomAnnotationValidator {
 			field.setAccessible(true);
 			Object value = field.get(obj);
 			if (null == value) {
-				return "Field : "+ field.getName() +", value can't be Null";
+				return "Field : " + field.getName() + ", value can't be Null";
 			}
 		} catch (IllegalAccessException ex) {
 			logger.log(Level.SEVERE, ex.getMessage());

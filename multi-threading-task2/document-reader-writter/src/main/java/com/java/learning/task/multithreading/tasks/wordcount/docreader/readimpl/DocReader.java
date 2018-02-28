@@ -25,6 +25,8 @@ public class DocReader implements IDocReader {
 	 */
 	public List<String> readFile(String fileName) {
 		try {
+			File file = new File(fileName);
+			if(file.exists() && file.canRead())
 			return Files.readAllLines(Paths.get(fileName));
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
@@ -43,6 +45,8 @@ public class DocReader implements IDocReader {
 
 	public List<Path> readDirectory(String directory) {
 		List<Path> filesPath = new ArrayList<>();
+		File file = new File(directory);
+		if(file.exists() && file.isDirectory())
 		try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(directory))) {
 			for (Path path : stream) {
 				filesPath.add(path);
